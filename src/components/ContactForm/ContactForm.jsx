@@ -1,28 +1,27 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import css from './ContactForm.module.css';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+const initialValues = {
+  name: '',
+  number: '',
+};
 
   const handleChange = value => {
-    return { [name]: value };
+    return { [initialValues.name]: value };
   };
 
   const handleSubmit = event => {
     event.preventDefault();
 
     const doesContactExist = contacts =>
-      contacts.setName === name || contacts.setNumber === number;
+      contacts.name === initialValues.name ||
+      contacts.number === initialValues.number;
     if (doesContactExist) {
       alert(`Contact already exists!`);
       return;
     }
-  };
-
-  const onSubmit = () => {
-    return { name: name, number: number };
   };
 
   return (
@@ -34,7 +33,7 @@ const ContactForm = () => {
         name="name"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        value={name}
+        value={initialValues.name}
         onChange={handleChange}
         required
       />
@@ -45,7 +44,7 @@ const ContactForm = () => {
         name="number"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        value={number}
+        value={initialValues.number}
         onChange={handleChange}
         required
       />
